@@ -198,23 +198,15 @@ will not reload a file changed underneath it.
 ## Constraints
 
 - Never use python-pptx autofit (`MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE` / any
-  `normAutofit`). Bake an explicit `Pt(size)` instead.
-- Never declare a generated deck correct on the strength of a LibreOffice / PDF
-  preview while any autofit remains — that preview hides the overflow. Trust a
-  preview only after the generator is autofit-free.
+  `normAutofit`); bake an explicit `Pt(size)` instead (Context). Never trust a
+  LibreOffice / PDF preview while any autofit remains — it hides the overflow.
 - Do not change `CHAR_W` (0.66) or `SAFETY` (0.94) in `fit_text.py` without
   re-calibrating against freshly rendered output and noting it.
-- Source the brand from the project's canonical template — palette, fonts,
-  wordmark and layout — resolving the current file by listing the brand folder
-  (a `brand.local.md` in this skill's directory names your default). Never invent
-  or approximate brand colours; if no governing template is findable, ask which
-  brand applies before building.
-- Verify before handover: render `pptx -> pdf -> images` and sweep every slide.
-  Distinguish clipped/overlapping (a bug) from near-an-edge-with-space (fine), and
-  check palette/fonts/wordmark against the template.
-- Assert the mechanics (autofit absent, sizes baked, brand values traced to the
-  template); leave composition and taste — hierarchy, whether it reads well — to
-  human review.
+- Source the brand from the project's canonical template, resolving the current
+  file by listing the brand folder (never pin a version); if none is findable,
+  ask which brand applies (Context / Process). Never invent or approximate a colour.
+- Verify before handover: render `pptx -> pdf -> images` and sweep every slide (Process §3).
+- Assert the mechanics; leave composition and taste to human review.
 - Do not fire for reading/extracting from an existing `.pptx` (built-in pptx
   skill), or for HTML / Canva / Google Slides decks, or a purely manual in-app
   edit.
