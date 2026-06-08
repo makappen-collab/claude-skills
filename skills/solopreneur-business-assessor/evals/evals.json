@@ -1,0 +1,54 @@
+{
+  "skill_name": "solopreneur-business-assessor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Assess this idea: an Airtasker-style marketplace for tradespeople outside London.",
+      "expected_output": "A cold scorecard rating the idea High-friction on the marketplace axes, with an AVOID or HARD verdict and a constructive what-would-have-to-be-true.",
+      "files": [],
+      "expectations": [
+        "All 9 rubric axes appear in the scorecard, each with a High-friction or Low-friction rating.",
+        "Sides, Liquidity geography, and Moat type are each rated High-friction.",
+        "The verdict label is AVOID or HARD and is accompanied by an X/9 axis tally.",
+        "The single biggest reason names the two-sided, local-liquidity, or marketplace dynamic.",
+        "A 'what would have to be true to make it work' line is present."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Score this idea: a vertical project-management tool ('Linear for X') for a knowledge-work niche I already understand well.",
+      "expected_output": "A cold scorecard rating the structural axes Low-friction and the founder-edge axis Low-friction, with a VIABLE or STRONG verdict and all three gates addressed.",
+      "files": [],
+      "expectations": [
+        "All 9 rubric axes appear in the scorecard, each with a friction rating.",
+        "Sides and Liquidity geography are each rated Low-friction.",
+        "Founder edge transfer (axis 8) is rated Low-friction.",
+        "Gate B (AI-resilience) and Gate C (cost of entry) are each explicitly evaluated with a Pass or Fail.",
+        "The verdict label is VIABLE or STRONG."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Assess this idea: a subscription compliance-certificate tool for MCS-registered heat-pump installers.",
+      "expected_output": "A full assessment produced by a spawned cold sub-agent that judged the idea on its own terms, with all axes and all three gates scored.",
+      "files": [],
+      "expectations": [
+        "A sub-agent is spawned via the Agent tool to perform the scoring rather than scoring inline.",
+        "The scoring sub-agent's prompt contains only the idea statement and the rubric, with no content from the calling conversation.",
+        "The final output contains no detail that was only available in the surrounding conversation.",
+        "All 9 axes and all three gates (willingness-to-pay, AI-resilience, cost-of-entry) are scored, and a verdict label with an X/9 tally is present."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Anyway, I'm still half-thinking about that trades thing, but let's move on.",
+      "expected_output": "Silence. The skill recognises a passing mention with no request for a verdict and does not fire.",
+      "files": [],
+      "expectations": [
+        "The skill does not fire and no scorecard is produced.",
+        "No scoring sub-agent is spawned.",
+        "No verdict label is presented; the skill stays silent and lets the conversation continue."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "skill_name": "pptx-render-safe",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The text is overflowing the cards in the workshop deck my Python script builds with python-pptx. Sort it out and regenerate the deck.",
+      "expected_output": "The generator is reworked to bake explicit font sizes via the fit_size helper with no autofit anywhere, then the deck is rendered to images and swept for overflow before being declared done.",
+      "files": [],
+      "expectations": [
+        "Grepping the generator for TEXT_TO_FIT_SHAPE, normAutofit, and auto_size returns nothing.",
+        "Every wrapped body text box gets an explicit Pt(size) whose value comes from fit_size or an equivalent baked size, not autofit.",
+        "The deck was rendered pptx -> pdf -> images (soffice + pdftoppm) and an overflow sweep was run across all slides.",
+        "The overflow sweep reports zero clipped, overlapping, or footer-colliding text boxes."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I regenerated the deck and the PDF preview looks clean. Is it good to send?",
+      "expected_output": "The agent refuses to certify the deck on a LibreOffice/PDF preview while autofit may remain, explaining that LibreOffice hides the overflow that PowerPoint shows, and only trusts the preview after confirming the generator is autofit-free.",
+      "files": [],
+      "expectations": [
+        "The reasoning states that LibreOffice recomputes the autofit scale but PowerPoint and Keynote do not.",
+        "The agent does NOT declare the deck correct from that preview while any autofit remains in the generator.",
+        "A preview is treated as faithful only after the generator is confirmed free of autofit."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build the slide deck for this methodology from the YAML in the project.",
+      "expected_output": "The generator sources palette, fonts, wordmark and layout from the project's current brand template rather than inventing them, and the output is checked against the template.",
+      "files": [],
+      "expectations": [
+        "The palette (hex), fonts and wordmark are sourced from the project's current brand template (resolved by listing the brand folder), not invented or remembered.",
+        "Every brand colour and font in the generator traces to that template or guidelines at a stated version, with no approximated values.",
+        "If no brand template is findable, the agent asks which brand applies rather than guessing a palette.",
+        "The render sweep checks palette, fonts and wordmark against the template and treats a wrong colour or a substituted font as a defect."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I'm tidying up scripts/fit_text.py for the deck generators. Review the fit_size helper.",
+      "expected_output": "The review confirms fit_size's contract and preserves the load-bearing calibration constants, rather than 'simplifying' them.",
+      "files": ["scripts/fit_text.py"],
+      "expectations": [
+        "fit_size returns max_size unchanged when the text already fits the box.",
+        "fit_size returns a smaller size for text that overflows at max_size.",
+        "fit_size never returns below min_size.",
+        "CHAR_W == 0.66 and SAFETY == 0.94 are preserved, or a re-calibration against rendered output is documented in the change."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Pull the text out of /path/to/board-deck.pptx into a one-page summary for me.",
+      "expected_output": "The skill does not fire; extraction is handled by the built-in pptx skill and no generator or autofit changes are proposed.",
+      "files": [],
+      "expectations": [
+        "pptx-render-safe does NOT fire.",
+        "No autofit, fit_size, or generator changes are proposed.",
+        "The agent defers to the built-in pptx skill for extraction (and would treat Canva / Google Slides / HTML decks as out of scope)."
+      ]
+    }
+  ]
+}
