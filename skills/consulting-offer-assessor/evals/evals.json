@@ -1,0 +1,54 @@
+{
+  "skill_name": "consulting-offer-assessor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Assess this offering: a fixed-price 'HRIS readiness' diagnostic. I know it's a Workday pre-implementation health-check but I haven't set a price, a timeline, or how we'd measure success yet.",
+      "expected_output": "A cold scorecard rating the offering Absent on price, timeline and metrics, with a NOT-READY or REFINE verdict, the biggest gap naming those missing pieces, and no product-brief handoff.",
+      "files": [],
+      "expectations": [
+        "All 9 rubric elements appear in the scorecard, each with a Solid, Thin or Absent rating.",
+        "Price, Timeline, and Metrics are each rated Absent.",
+        "The verdict label is NOT-READY or REFINE and is accompanied by a solid/thin/absent-of-9 tally.",
+        "The single biggest gap names the missing price, timeline or metrics rather than a peripheral element.",
+        "A 'what would have to be true to move forward' line is present and no product-brief handoff is recommended."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Score this methodology offer: a 3-phase, 15-day fixed-price change-adoption programme for CHROs at mid-market firms going live on Workday. £36k. Deliverables, phases, metrics and the proof base from past Workday programmes are all written up.",
+      "expected_output": "A cold scorecard rating the listed elements Solid or Thin, both gates evaluated, a READY or STRONG verdict, and a product-brief handoff recommended.",
+      "files": [],
+      "expectations": [
+        "All 9 rubric elements appear in the scorecard, each with a rating.",
+        "Problem definition, Deliverables, Price, Timeline, Phases, Target buyer and Proof are each rated Solid or Thin (none Absent).",
+        "Gate A (coherence) and Gate B (buyer-willingness) are each explicitly evaluated with a Pass or Fail.",
+        "The verdict label is READY or STRONG.",
+        "product-brief is recommended as the next stage."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Assess this offering: a quarterly retained 'HR-AI operating model' advisory for People Directors.",
+      "expected_output": "A full readiness assessment produced by a spawned cold sub-agent that judged the offering on its own terms, with all 9 elements and both gates scored.",
+      "files": [],
+      "expectations": [
+        "A sub-agent is spawned via the Agent tool to perform the scoring rather than scoring inline.",
+        "The scoring sub-agent's prompt contains only the offering statement, the rubric and the calibration, with no content from the calling conversation.",
+        "The final output contains no detail that was only available in the surrounding conversation.",
+        "All 9 elements and both gates (coherence, buyer-willingness) are scored, and a verdict label with a solid/thin/absent tally is present."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I might productise that change-adoption thing one day, but anyway — back to the deck.",
+      "expected_output": "Silence. The skill recognises a passing mention with no request for a readiness verdict and does not fire.",
+      "files": [],
+      "expectations": [
+        "The skill does not fire and no scorecard is produced.",
+        "No scoring sub-agent is spawned.",
+        "No verdict label is presented; the skill stays silent and lets the conversation continue."
+      ]
+    }
+  ]
+}
