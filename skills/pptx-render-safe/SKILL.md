@@ -200,6 +200,12 @@ will not reload a file changed underneath it.
 - Never use python-pptx autofit (`MSO_AUTO_SIZE.TEXT_TO_FIT_SHAPE` / any
   `normAutofit`); bake an explicit `Pt(size)` instead (Context). Never trust a
   LibreOffice / PDF preview while any autofit remains — it hides the overflow.
+- Default every text frame to top-anchored (`text_frame.vertical_anchor =
+  MSO_ANCHOR.TOP`; `valign: "top"` in pptxgenjs). The library default centres
+  vertically, which drifts when sibling frames wrap to different line counts —
+  it floated the 01/02/03 numerals and titles in the Makappen v1.5 three-column
+  layout (Rob: "the numbers are not on the same level"). Top-anchor unless
+  single-line chrome (footer wordmarks, badges) is deliberately centred.
 - Do not change `CHAR_W` (0.66) or `SAFETY` (0.94) in `fit_text.py` without
   re-calibrating against freshly rendered output and noting it.
 - Source the brand from the project's canonical template, resolving the current
